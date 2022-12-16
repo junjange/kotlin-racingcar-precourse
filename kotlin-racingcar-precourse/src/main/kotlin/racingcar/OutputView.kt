@@ -1,16 +1,9 @@
 package racingcar
 
 class OutputView {
-    fun getCarNamePrint() = println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)")
-    fun getAttemptsNumPrint() = println("시도할 회수는 몇회인가요?")
-    fun carRaceResultPrint(car: Car) = println("${car.getName()} : ${car.raceRecord}")
+    fun getCarNamePrint() = println(Constant.getCarNameMessage)
+    fun getAttemptsNumPrint() = println(Constant.getAttemptsNumMessage)
+    fun carRaceResultPrint(car: Car) = println(Constant.carRaceResultMessage.format(car.getName(), car.raceRecord))
+    fun carRaceFinalResultPrint(winner: String) = println(Constant.carRaceFinalResultMessage.format(winner))
 
-    fun carRaceFinalResultPrint(cars: List<Car>) {
-        val winner = cars.filter { it ->
-            it.raceRecord.length == cars.maxOf {
-                it.raceRecord.length
-            }
-        }.joinToString(", ") { it.getName() }
-        println("최종 우승자 : $winner")
-    }
 }

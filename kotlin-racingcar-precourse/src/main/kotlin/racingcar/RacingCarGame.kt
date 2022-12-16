@@ -2,9 +2,9 @@ package racingcar
 
 import kotlin.random.Random
 
-class RacingCarGame {
+class RacingCarGame : RacingCarGameImpl {
 
-    fun start() {
+    override fun start() {
         OutputView().getCarNamePrint()
         val carNames = InputView().getCarName()
         OutputView().getAttemptsNumPrint()
@@ -13,7 +13,7 @@ class RacingCarGame {
         raceStart(makeCar(carNames), attemptsNum)
     }
 
-    fun raceStart(cars: List<Car>, attemptsNum: Int) {
+    override fun raceStart(cars: List<Car>, attemptsNum: Int) {
         println("실행 결과")
         for (i in 0 until attemptsNum) {
             cars.forEach {
@@ -22,14 +22,21 @@ class RacingCarGame {
             }
             println()
         }
-        OutputView().carRaceFinalResultPrint(cars)
+        OutputView().carRaceFinalResultPrint(raceResult(cars))
     }
 
-    fun makeCar(cars: List<String>): List<Car> {
+    override fun raceResult(cars: List<Car>): String = cars.filter { it ->
+        it.raceRecord.length == cars.maxOf {
+            it.raceRecord.length
+        }
+    }.joinToString(", ") { it.getName() }
+
+
+    override fun makeCar(cars: List<String>): List<Car> {
         return cars.map {
             Car(it.trim())
         }
     }
 
-    fun carRace(): Boolean = (0..9).random() >= 4
+    override fun carRace(): Boolean = (0..9).random() >= 4
 }

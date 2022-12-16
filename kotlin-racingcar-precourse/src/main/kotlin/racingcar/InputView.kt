@@ -22,7 +22,7 @@ class InputView {
             kotlin.runCatching {
                 attemptsNum.attemptsNumInputTypeException()
             }.onSuccess { return attemptsNum.toInt() }.onFailure {
-                it.message
+                println(it.message)
                 OutputView().getAttemptsNumPrint()
             }
         }
